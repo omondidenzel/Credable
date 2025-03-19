@@ -1,0 +1,8 @@
+pandas
+sqlalchemy
+virtualenv
+dotenv
+psycopg2-binary
+openpyxl
+statsmodels
+matplotlib
