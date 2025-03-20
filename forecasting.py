@@ -37,7 +37,7 @@ try:
     with connection.cursor() as cursor:
         log.info("Connected to the database")
         # Fetch disbursement data and load into pandas DataFrame
-        cursor.execute("SELECT * FROM public.disbursements")  # No schema prefix needed
+        cursor.execute("SELECT * FROM public.disbursements") 
         disbursement_data = cursor.fetchall()
         disbursement = pd.DataFrame(disbursement_data)
         disbursement.columns = [desc[0] for desc in cursor.description]
@@ -55,7 +55,7 @@ except Exception as e:
     log.error(f"Error: {e}")
 
 
-# Aggregate profit/loss by month
+# Aggregate P/L by month
 disbursement['disb_date'] = pd.to_datetime(disbursement['disb_date']).dt.date
 repayments['date_time'] = pd.to_datetime(
     repayments['date_time'],
@@ -63,7 +63,7 @@ repayments['date_time'] = pd.to_datetime(
     errors='coerce'
 ).dt.date
 
-# Extract month from date
+# Extract month only from date
 disbursement['month'] = pd.to_datetime(disbursement['disb_date']).dt.to_period('M')
 repayments['month'] = pd.to_datetime(repayments['date_time']).dt.to_period('M')
 
@@ -79,7 +79,7 @@ profit_loss.set_index('month', inplace=True)
 profit_loss.index = pd.to_datetime(profit_loss.index)
 
 # Fit ARIMA Model
-model = ARIMA(profit_loss, order=(2,1,2))  # ARIMA(p,d,q)
+model = ARIMA(profit_loss, order=(2,1,2)) 
 model_fit = model.fit()
 
 # Forecast next 3 months
