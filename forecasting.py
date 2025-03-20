@@ -20,11 +20,11 @@ log = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv(find_dotenv(), override=True)
 
-# Initialize DataFrames outside the try block
+# Initializing empty DataFrames
 disbursement = pd.DataFrame()
 repayments = pd.DataFrame()
 
-# Database connection
+# Database connection postgres used 
 connection = psycopg2.connect(
     host=os.getenv("DB_HOST"),
     port=os.getenv("DB_PORT"),
